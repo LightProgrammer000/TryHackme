@@ -1,0 +1,141 @@
+===================
+    Power Shell    
+===================
+
+
+++++++++++
++ FASE 0 +
+++++++++++
+
+# Ajuda
+Get-Help
+Get-Help Get-Date
+Get-Help New-localuser -examples
+Get-Help Invoke-Command -examples
+
+# Comandos (apelidos)
+Get-Alias
+
+# Operadores
+-ne: "not equal".
+-gt: "greater than".
+-ge: "greater than or equal to".
+-lt: "less than".
+-le: "less than or equal to".
+
+
+++++++++++
++ FASE 1 +
+++++++++++
+
+# Achando cmdlets (repositorios online)
+Find-Module -Name "PowerShell*"
+
+# Instalando modulos
+Install-Module PowerShellGet
+
+
+++++++++++
++ FASE 2 +
+++++++++++
+
+# Todos os comnandos
+Get-Command
+Get-Command -Name Remove*
+Get-Command -Name new-localuser
+Get-Command -CommandType "function"
+
+# Diretorios (dir)
+Get-ChildItem
+Get-ChildItem C:\Users
+Get-ChildItem -Path C:\Users
+
+# Leitura (cat)
+Get-Content .\captain-hat.txt
+Get-Content 'C:\Users\All Users\chocolatey\.chocolatey\vim.9.1.472\.arguments'
+
+# Mudando de diretorio (cd)
+Set-Location c:\
+Set-Location .\Pictures\
+
+Set-Location -Path c:\
+Set-Location -Path c:\users\captain
+
+# Criando itens
+New-Item .\captain-cabin\capitain-wardrobe -item Directory			# Diretorio
+New-Item -Path .\captain-cabin\capitain-wardrobe -item Directory
+
+New-Item .\captain-cabin\capitain-wardrobe\captain-boots.txt -ItemType File	# Arquivo
+
+# Copiando
+Copy-Item .\captain-cabin\captain-hat.txt .\captain-cabin\captain-hat2.txt
+
+# Removendo itens
+del .\capitai-wardrobe\
+Remove-Item .\captain-cabin\capitain-wardrobe\captain-boots.txt
+Remove-Item .\captain-cabin\capitain-wardrobe\
+
+
+++++++++++
++ FASE 3 +
+++++++++++
+
++ Piping
+
+# Listagem
+ChildItem | Sort-Object Length
+
+# Extensao
+Get-ChildItem | Where-Object Extension -eq .txt
+Get-ChildItem | Where-Object Name -like ship*
+Get-ChildItem | Where-Object Length -gt 100
+Get-ChildItem | Select-Object Name, Length
+Get-ChildItem c:\Windows | Where-Object Extension -eq .bat
+
+# Lista filtrada por tamanho de arquivo
+Get-ChildItem | Where-Object -Property Length -gt 100
+Get-ChildItem | Select-Object Name,Length -last 1 | Sort-Object Length
+
+# Listagem (estilo grep)
+Select-String .\captain-hat.txt -pattern "hat"
+Get-Service | Where-Object { $_.Name -like "*ssh*" }
+Get-Service | Where-Object { $_.Name -like "p1r4*" }
+
+
+++++++++++
++ FASE 4 +
+++++++++++
+
++ Redes
+
+# Informacoes do computador
+Get-ComputerInfo
+
+# Usuarios
+Get-LocalUser
+
+# IP
+Get-NetIPConfiguration
+Get-NetIPAddress
+
+
+++++++++++
++ FASE 5 +
+++++++++++
+
++ Processos
+
+# Processamento
+Get-Process
+Get-Service
+Get-NetTCPConnection
+
+# Hash
+Get-FileHash *
+Get-FileHash .\captain-boots.txt
+Get-FileHash C:\Users\p1r4t3\hidden-treasure-chest\big-treasure.txt
+
+# Comandos remotos
+Invoke-Command -Computername RoyalFortune -ScriptBlock { get-service }
+Invoke-Command -ComputerName RoyalFortune -ScriptBlock { Get-LocalUser }
+Invoke-Command -ComputerName RoyalFortune -FilePath C:\scripts\backdoor.ps1
